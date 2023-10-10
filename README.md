@@ -1,5 +1,5 @@
 # CAESAR COMPUTATOR 🔑
-This is a simple program, written using [Kotlin](https://kotlinlang.org/) that receives an Integer as input and prints the correspondent Roman numeral.
+This is a simple program, written in [Kotlin](https://kotlinlang.org/), that receives an Integer as the input and prints the correspondent Roman numeral.
 
      738041            738057720027           750027750837140917          730037150037    19837     
        903              7907  1807             1091  3097  305              88    504     387       
@@ -31,8 +31,19 @@ This is a simple program, written using [Kotlin](https://kotlinlang.org/) that r
         191  7003                     65   605    3097                  64   4067   180   309       
      736027   300437               15097   790937150837              12897   790831720037150837     
 
+## Approach
+Create 2 arrays, one for storing the values of roman numerals, and other for storing the corresponding numbers.
+Create a string object to store the generated value. While comparing the integer and the roman numerals execute the logic below:
 
-## Examples
+1. If input number is >= the highest Roman numeral, add it to the string;
+2. Subtract the current int value from the input number;
+3. If input number is < the highest Roman numeral, then check with next highest Roman numerals;
+4. Repeat the process above until the input number becomes 0.
+
+### Reference
+Article [Convert Integer to Roman Numerals in Java](https://www.javatpoint.com/convert-integer-to-roman-numerals-in-java)
+
+### Examples
 
 | Input | Output |
 |-------|--------|

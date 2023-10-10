@@ -20,10 +20,14 @@ class RomanConverter {
         var result = ""
         var number = num
         for (i in INT_VALUES.indices) {
+            // 3. If input number is < the highest Roman numeral, then check with next highest Roman numerals
             while (number >= INT_VALUES[i]) {
+                // 1. If input number is >= the highest Roman numeral, add it to the string and reduce its corresponding value from the input number
                 result += ROMAN_SYMBOLS[i]
+                // 2. Subtract the current int value from the input number
                 number -= INT_VALUES[i]
             }
+            // 4. Repeat the process above until the input number becomes 0
         }
         return result
     }
