@@ -4,29 +4,37 @@ package com.caparelli
  * Launch point.
  */
 fun main() {
-    // 1. The application will wait for the user input
-    print("Enter an integer: ")
-    convertIntToRoman(readLine())
+    // The application will wait for the user input
+    print("Enter an integer or a Roman numeral: ")
+    // Print the expected result (Roman Numeral or Integer number)
+    println(convertToRomanOrInteger(readLine()))
 }
 
+fun convertToRomanOrInteger(input: String?): String {
+    // If the input is null, throw the exception, otherwise get the input parameter
+    requireNotNull(input) { "Invalid input (null). Please enter a valid integer or a Roman numeral." }
+    val converter = RomanConverter()
+    return if (converter.isRomanNumeral(input)) {
+        // Input is a valid Roman numeral, returns the expected integer number
+        "$input in integer form is: ${converter.romanToInt(input)}"
+    } else if (isPositiveInteger(input)) {
+        // Input is a valid integer, returns the expected Roman numeral
+        "$input in Roman numerals is: ${converter.intToRoman(input.toInt())}"
+    } else {
+        // Invalid input, throws the exception
+        throw IllegalArgumentException("Invalid input. Please enter a valid integer or a Roman numeral.")
+    }
+}
+
+
 /**
- * Function responsible for reading the user input and to valid it.
+ * Check if the received input is a valid positive Integer.
  */
-fun convertIntToRoman(input: String?) {
-    try {
-        // 2. Get the expected input (an Integer value)
-        val num = input?.toInt()
-        if (num != null) {
-            // 3. If the parameter is valid, use the converted
-            val romanNumeral = RomanConverter().intToRoman(num)
-            // 4. Print the expected message
-            println("$num in Roman numerals is: $romanNumeral")
-        } else {
-            // 3.1. If the input parameter is null, show the following message
-            throw IllegalArgumentException("Invalid input (null). Please enter a valid integer.")
-        }
+fun isPositiveInteger(input: String): Boolean {
+    return try {
+        val number = input.toInt()
+        number > 0
     } catch (e: NumberFormatException) {
-        // 2.1. If the input parameter is invalid, show the following message
-        throw IllegalArgumentException("Invalid input. Please enter a valid integer.")
+        false
     }
 }
