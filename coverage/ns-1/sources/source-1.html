@@ -51,18 +51,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    66.7%
   </span>
   <span class="absValue">
-    (2/2)
+    (2/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    70%
+    85.7%
   </span>
   <span class="absValue">
-    (7/10)
+    (12/14)
   </span>
 </td>
 </tr>
@@ -80,30 +80,38 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * Launch point.
 &nbsp; */
 &nbsp;fun main() {
-&nbsp;    // 1. The application will wait for the user input
-<b class="fc">&nbsp;    print(&quot;Enter an integer: &quot;)</b>
-<b class="fc">&nbsp;    convertIntToRoman(readLine())</b>
+&nbsp;    // The application will wait for the user input
+<b class="nc">&nbsp;    print(&quot;Enter an integer or a Roman numeral: &quot;)</b>
+&nbsp;    // Print the expected result (Roman Numeral or Integer number)
+<b class="nc">&nbsp;    println(convertToRomanOrInteger(readLine()))</b>
 &nbsp;}
 &nbsp;
+&nbsp;fun convertToRomanOrInteger(input: String?): String {
+&nbsp;    // If the input is null, throw the exception, otherwise get the input parameter
+<b class="fc">&nbsp;    requireNotNull(input) { &quot;Invalid input (null). Please enter a valid integer or a Roman numeral.&quot; }</b>
+<b class="fc">&nbsp;    val converter = RomanConverter()</b>
+<b class="fc">&nbsp;    return if (converter.isRomanNumeral(input)) {</b>
+&nbsp;        // Input is a valid Roman numeral, returns the expected integer number
+<b class="fc">&nbsp;        &quot;$input in integer form is: ${converter.romanToInt(input)}&quot;</b>
+<b class="fc">&nbsp;    } else if (isPositiveInteger(input)) {</b>
+&nbsp;        // Input is a valid integer, returns the expected Roman numeral
+<b class="fc">&nbsp;        &quot;$input in Roman numerals is: ${converter.intToRoman(input.toInt())}&quot;</b>
+&nbsp;    } else {
+&nbsp;        // Invalid input, throws the exception
+<b class="fc">&nbsp;        throw IllegalArgumentException(&quot;Invalid input. Please enter a valid integer or a Roman numeral.&quot;)</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
 &nbsp;/**
-&nbsp; * Function responsible for reading the user input and to valid it.
+&nbsp; * Check if the received input is a valid positive Integer.
 &nbsp; */
-&nbsp;fun convertIntToRoman(input: String?) {
-<b class="fc">&nbsp;    try {</b>
-&nbsp;        // 2. Get the expected input (an Integer value)
-<b class="fc">&nbsp;        val num = input?.toInt()</b>
-<b class="fc">&nbsp;        if (num != null) {</b>
-&nbsp;            // 3. If the parameter is valid, use the converted
-<b class="fc">&nbsp;            val romanNumeral = RomanConverter().intToRoman(num)</b>
-&nbsp;            // 4. Print the expected message
-<b class="fc">&nbsp;            println(&quot;$num in Roman numerals is: $romanNumeral&quot;)</b>
-&nbsp;        } else {
-&nbsp;            // 3.1. If the input parameter is null, show the following message
-<b class="nc">&nbsp;            throw IllegalArgumentException(&quot;Invalid input (null). Please enter a valid integer.&quot;)</b>
-&nbsp;        }
-<b class="nc">&nbsp;    } catch (e: NumberFormatException) {</b>
-&nbsp;        // 2.1. If the input parameter is invalid, show the following message
-<b class="nc">&nbsp;        throw IllegalArgumentException(&quot;Invalid input. Please enter a valid integer.&quot;)</b>
+&nbsp;fun isPositiveInteger(input: String): Boolean {
+<b class="fc">&nbsp;    return try {</b>
+<b class="fc">&nbsp;        val number = input.toInt()</b>
+<b class="fc">&nbsp;        number &gt; 0</b>
+<b class="fc">&nbsp;    } catch (e: NumberFormatException) {</b>
+<b class="fc">&nbsp;        false</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -129,7 +137,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-10-10 10:18</div>
+    <div style="float:right;">generated on 2023-10-10 12:36</div>
 </div>
 </body>
 </html>

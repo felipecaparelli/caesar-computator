@@ -54,7 +54,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (2/2)
+    (4/4)
   </span>
 </td>
 <td class="coverageStat">
@@ -62,7 +62,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (8/8)
+    (27/27)
   </span>
 </td>
 </tr>
@@ -86,6 +86,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;class RomanConverter {</b>
 &nbsp;
 &nbsp;    /**
+&nbsp;     * Check if the input value is a valid Roman numeral
+&nbsp;     */
+&nbsp;    fun isRomanNumeral(input: String): Boolean {
+<b class="fc">&nbsp;        return &quot;^(M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$&quot;.toRegex().matches(input)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
 &nbsp;     * Convert the Integer number to a Roman numeral
 &nbsp;     *
 &nbsp;     * @param num - Integer value
@@ -96,11 +103,50 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        var result = &quot;&quot;</b>
 <b class="fc">&nbsp;        var number = num</b>
 <b class="fc">&nbsp;        for (i in INT_VALUES.indices) {</b>
+&nbsp;            // 3. If input number is &lt; the highest Roman numeral, then check with next highest Roman numerals
 <b class="fc">&nbsp;            while (number &gt;= INT_VALUES[i]) {</b>
+&nbsp;                // 1. If input number is &gt;= the highest Roman numeral, add it to the string and reduce its corresponding value from the input number
 <b class="fc">&nbsp;                result += ROMAN_SYMBOLS[i]</b>
+&nbsp;                // 2. Subtract the current int value from the input number
 <b class="fc">&nbsp;                number -= INT_VALUES[i]</b>
 &nbsp;            }
+&nbsp;            // 4. Repeat the process above until the input number becomes 0
 &nbsp;        }
+<b class="fc">&nbsp;        return result</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Receives a Roman numeral and convert to an Integer number.
+&nbsp;     *
+&nbsp;     * @param roman - String value representing a Roman numeral
+&nbsp;     *
+&nbsp;     * @return an Integer value
+&nbsp;     */
+&nbsp;    fun romanToInt(roman: String): Int {
+<b class="fc">&nbsp;        val romanToNumber = mapOf(</b>
+<b class="fc">&nbsp;            &#39;I&#39; to 1,</b>
+<b class="fc">&nbsp;            &#39;V&#39; to 5,</b>
+<b class="fc">&nbsp;            &#39;X&#39; to 10,</b>
+<b class="fc">&nbsp;            &#39;L&#39; to 50,</b>
+<b class="fc">&nbsp;            &#39;C&#39; to 100,</b>
+<b class="fc">&nbsp;            &#39;D&#39; to 500,</b>
+<b class="fc">&nbsp;            &#39;M&#39; to 1000</b>
+&nbsp;        )
+&nbsp;
+<b class="fc">&nbsp;        var result = 0</b>
+<b class="fc">&nbsp;        var prevValue = 0</b>
+&nbsp;
+<b class="fc">&nbsp;        for (i in roman.length - 1 downTo 0) {</b>
+<b class="fc">&nbsp;            val currentChar = roman[i]</b>
+<b class="fc">&nbsp;            val currentValue = romanToNumber[currentChar] ?: 0</b>
+<b class="fc">&nbsp;            if (currentValue &lt; prevValue) {</b>
+<b class="fc">&nbsp;                result -= currentValue</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                result += currentValue</b>
+&nbsp;            }
+<b class="fc">&nbsp;            prevValue = currentValue</b>
+&nbsp;        }
+&nbsp;
 <b class="fc">&nbsp;        return result</b>
 &nbsp;    }
 &nbsp;}
@@ -127,7 +173,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-10-10 10:18</div>
+    <div style="float:right;">generated on 2023-10-10 12:36</div>
 </div>
 </body>
 </html>
