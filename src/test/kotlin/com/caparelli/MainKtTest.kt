@@ -12,6 +12,7 @@ internal class MainKtTest {
         assertEquals("54 in Roman numerals is: LIV", convertToRomanOrInteger("54"))
         assertEquals("129 in Roman numerals is: CXXIX", convertToRomanOrInteger("129"))
         assertEquals("587 in Roman numerals is: DLXXXVII", convertToRomanOrInteger("587"))
+        assertEquals("3000 in Roman numerals is: MMM", convertToRomanOrInteger("3000"))
     }
 
     @Test
