@@ -1,5 +1,5 @@
 # CAESAR COMPUTATOR 🔑
-This is a simple program, written in [Kotlin](https://kotlinlang.org/), that receives an Integer as the input and prints the correspondent Roman numeral.
+This is a simple program, written in [Kotlin](https://kotlinlang.org/), that receives an Integer as the input and prints the correspondent Roman numeral, or receives a Roman numeral and convert it to an Integer value.
 
      738041            738057720027           750027750837140917          730037150037    19837     
        903              7907  1807             1091  3097  305              88    504     387       
